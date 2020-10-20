@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+	<meta name="mobile-web-app-capable" content="yes">
+	<title> Digit Recognition </title>
+
+	<link rel="stylesheet" href="../../public/css/trabajo.css" />
+</head>
+<body>
+
+	<h1>Seleccione el idioma</h1>
+    <select id='voiceList'></select>
+	<div id="main"> Loading...
+	</div>
+	<button onclick="predict()">Hablar!</button>
+	<button onclick="erase()">Limpiar!</button>
+
+	<div id="predict"></div>
+	
+	<script src="../../public/js/Matrix.js"></script>
+	<script src="../../public/js/Dejavu.js"></script>
+	<script src="../../public/js/main.js"></script>
+</body>
+</html>

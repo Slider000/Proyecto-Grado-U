@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../public/images/libro.png" />
+    <title>Aplicacion IA</title>
+    <link rel="stylesheet" href="../../public/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js'></script>
+    <script src='../../public/js/PerceptronMulticapas.js'></script>
+    <script src='../../public/js/lienzo.js'></script>
+    <script src='../../public/js/ImageAnalize.js'></script>
+    <script src="../../public/css/style.css"></script>
+    <script src="https://kit.fontawesome.com/772fa4e66f.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+<div style="display: none;">
+    <!-- <h1>Seleccione el idioma</h1>
+    <select id='voiceList'></select> <br><br> -->
+
+    <!-- <input id='txtInput'/> <br><br>     -->
+    <!-- <button id='btnSpeak' onclick="btnHablar()">Hablar</button> -->
+
+    <div class="container">
+    <!-- <h3>Dibujar un número en el recuadro blanco</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="backcanvas bg-danger">
+            <canvas id="perceptronPaint" width="180" height="180"></canvas>
+        </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="backcanvas bg-dark"><br/>
+                <span id="perceptron_status">...</span>
+            </div>
+        </div> -->
+    </div>
+    <hr/>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Número</td>
+                <td>tasa de acierto (0 al 1)</td>
+                <td>Porcentaje</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0</td>
+                <td><span id="result_0">0</span></td>
+                <td><span id="acierto_0">0</span></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td><span id="result_1">0</span></td>
+                <td><span id="acierto_1">0</span></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><span id="result_2">0</span></td>
+                <td><span id="acierto_2">0</span></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><span id="result_3">0</span></td>
+                <td><span id="acierto_3">0</span></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><span id="result_4">0</span></td>
+                <td><span id="acierto_4">0</span></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><span id="result_5">0</span></td>
+                <td><span id="acierto_5">0</span></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td><span id="result_6">0</span></td>
+                <td><span id="acierto_6">0</span></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td><span id="result_7">0</span></td>
+                <td><span id="acierto_7">0</span></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td><span id="result_8">0</span></td>
+                <td><span id="acierto_8">0</span></td>
+            </tr>
+
+        </tbody>
+    </table>
+    
+    <h3>Ajustes de la red neuronal</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Tasa aprendizaje</td>
+                <td>Error deseado</td>
+                <td>Épocas</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="form-control" id="perceptron_tasa_aprendizaje" value="0.2" /></td>
+                <td><input type="text" class="form-control" id="perceptron_error_deseado" value="0.05" /></td>
+                <td><input type="text" class="form-control" id="perceptron_epocas" value="50000" /></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h3>Muestras</h3>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><img src="../../public/img/cero_1.jpg" class="scream" data-value="0" /></td>
+                <td><img src="../../public/img/uno_1.jpg" class="scream" data-value="1" /></td>
+                <td><img src="../../public/img/dos_1.jpg" class="scream" data-value="2" /></td>
+                <td><img src="../../public/img/tres_1.jpg" class="scream" data-value="3" /></td>
+                <td><img src="../../public/img/cuatro_1.jpg" class="scream" data-value="4" /></td>
+                <td><img src="../../public/img/cinco_1.jpg" class="scream" data-value="5" /></td>
+                <td><img src="../../public/img/seis_1.jpg" class="scream" data-value="6"/></td>
+                <td><img src="../../public/img/siete_1.jpg" class="scream" data-value="7"/></td>
+                <td><img src="../../public/img/ocho_1.jpg" class="scream" data-value="8"/></td>
+            </tr>
+            <tr>
+                <td><img src="../../public/img/cero_2.jpg" class="scream" data-value="0" /></td>
+                <td><img src="../../public/img/uno_2.jpg" class="scream" data-value="1" /></td>
+                <td><img src="../../public/img/dos_2.jpg" class="scream" data-value="2" /></td>
+                <td><img src="../../public/img/tres_2.jpg" class="scream" data-value="3" /></td>
+                <td><img src="../../public/img/cuatro_2.jpg" class="scream" data-value="4" /></td>
+                <td><img src="../../public/img/cinco_2.jpg" class="scream" data-value="5" /></td>
+                <td><img src="../../public/img/seis_2.jpg" class="scream" data-value="6" /></td>
+                    <td><img src="../../public/img/siete_2.jpg" class="scream" data-value="7" /></td>
+                <td><img src="../../public/img/ocho_2.jpg" class="scream" data-value="8" /></td>
+            </tr>
+            <tr>
+                <td><img src="../../public/img/cero_3.jpg" class="scream" data-value="0" /></td>
+                <td><img src="../../public/img/uno_3.jpg" class="scream" data-value="1" /></td>
+                <td><img src="../../public/img/dos_3.jpg" class="scream" data-value="2" /></td>
+                <td><img src="../../public/img/tres_3.jpg" class="scream" data-value="3" /></td>
+                <td><img src="../../public/img/cuatro_3.jpg" class="scream" data-value="4" /></td>
+                <td><img src="../../public/img/cinco_3.jpg" class="scream" data-value="5" /></td>
+                <td><img src="../../public/img/seis_3.jpg" class="scream" data-value="6" /></td>
+                    <td><img src="../../public/img/siete_3.jpg" class="scream" data-value="7" /></td>
+                <td><img src="../../public/img/ocho_3.jpg" class="scream" data-value="8" /></td>
+            </tr>
+            <tr>
+                <td><img src="../../public/img/cero_4.jpg" class="scream" data-value="0" /></td>
+                <td><img src="../../public/img/uno_4.jpg" class="scream" data-value="1" /></td>
+                <td><img src="../../public/img/dos_4.jpg" class="scream" data-value="2" /></td>
+                <td><img src="../../public/img/tres_4.jpg" class="scream" data-value="3" /></td>
+                <td><img src="../../public/img/cuatro_4.jpg" class="scream" data-value="4" /></td>
+                <td><img src="../../public/img/cinco_4.jpg" class="scream" data-value="5" /></td>
+                <td><img src="../../public/img/seis_3.jpg" class="scream" data-value="6" /></td>
+                <td><img src="../../public/img/siete_3.jpg" class="scream" data-value="7" /></td>
+                <td><img src="../../public/img/ocho_3.jpg" class="scream" data-value="8" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <canvas id="myCanvas" style="display:none;"></canvas>
+</div>
+</div>
+    <section id="header">
+        <div class="containerr">
+            <img src="../../public/images/Unisabaneta.png" class="logo">
+            <div class="header-text">
+                <h1>el propósito es <br>enseñar, acercar el aprendizaje a las personas. </h1>
+                <span class="square"></span>
+                <p>es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto
+                    de relleno estándar de las industrias desde el año 1500,</p>
+                    <a href="#proyect">
+                <button  class="comun-btn">ir al Proyecto</button>
+            </a>
+                <div class="line">
+                    <span class="line-1"></span><br>
+                    <span class="line-2"></span><br>
+                    <span class="line-3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <nav id="sideNav">
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#objetivoG">OBJETIVO</a></li>
+            <li><a href="#tecnologias">TECNOLOGIAS</a></li>
+            <li><a href="#dirigido">DIRIGIDO</a></li>
+            <li><a href="#proyect">PROYECTO</a></li>
+            <li><a href="">EQUIPO</a></li>
+            <li><a href="#comments">COMENTARIOS</a></li>
+        </ul>
+    </nav>
+    <img src="../../public/images/menu.png" id="menuBtn">
+
+
+    <!-- Objetivo General -->
+    <section id="objetivoG">
+        <div class="obj-left-col">
+            <img src="../../public/images/about.png">
+        </div>
+        <div class="obj-right-col">
+            <div class="obj-text">
+                <h1>Objetivo General</h1>
+                <span class="square"></span>
+                <p>es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto
+                    de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que
+                    se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró
+                    hacer un libro de textos especimen. </p><br><br>
+                <div class="line">
+                    <span class="line-1"></span><br>
+                    <span class="line-2"></span><br>
+                    <span class="line-3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Tecnologias -->
+
+    <section id="tecnologias">
+        <div class="tecno"></div>
+        <div class="tecnologias-row">
+            <div class="tecnologias-col">
+                <img src="../../public/images/pic-1.png"></div>
+                <div class="tecnologias-text">
+                <h4>Keras.js</h4>
+                <p>Darle click a la imagen para mayor informacion sobre keras.js.</p>
+            </div>
+        
+            
+                <div class="tecnologias-col">
+                <img src="../../public/images/pic-2.png"></div>
+                <div class="tecnologias-text">
+                <h4>Express.js</h4>
+                <p>Darle click a la imagen para mayor informacion sobre Express.js. </p>
+            </div>
+       
+        
+                <div class="tecnologias-col">
+                <img src="../../public/images/pic-3.png"></div>
+                <div class="tecnologias-text">
+                <h4>Node js</h4>
+                <p>Darle click a la imagen para mayor informacion sobre Node.js.</p>
+            </div>
+        
+          
+        <div class="tecnologias-btn">
+            <div class="line">
+                <span class="line-1"></span><br>
+                <span class="line-2"></span><br>
+                <span class="line-3"></span>
+            </div>
+        </div>
+            <a href="#proyect">
+            <button class="comun-btn">Ir al proyecto</button>
+            </a>
+        
+    </section>
+  
+    <!-- Dirigido A -->
+    <section id="dirigido">
+        <div class="containerr dirigido-row">
+            <div class="dirigido-left-col">
+                <div class="dirigido-text">
+                    <h1>Dirigido A:</h1>
+                    <span class="square"></span>
+                    <p>
+                        es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el
+                        texto
+                        de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona
+                        que
+                        se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que
+                        logró
+                        hacer un libro de textos especimen. es simplemente el texto de relleno de las imprentas y
+                        archivos de texto. Lorem Ipsum ha sido el texto
+                        de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona
+                        que
+                        se dedica a la imprenta).
+                    </p><br><br>
+                    <div class="line">
+                        <span class="line-1"></span><br>
+                        <span class="line-2"></span><br>
+                        <span class="line-3"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="dirigido-right-col">
+                <img src="../../public/images/undraw_real_time_collaboration_c62i.svg" alt="">
+            </div>
+        </div>
+    </section>
+
+    <!-- Proyecto -->
+    <section id="proyect">
+        <div class="obj-left-col">
+            <img src="../../public/images/offer.png">
+        </div>
+        <div class="obj-right-col">
+            <div class="obj-text">
+                <h1>Reconocimiento De Numeros</h1>
+                <span class="square"></span>
+                <p>es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto
+                    de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que
+                    se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró
+                    hacer un libro de textos especimen. </p><br><br><a href="#prueba">
+                    <button type="button" class="comun-btn" data-toggle="modal" data-target="#prueba_modal">Prueba</button>
+                </a>
+                <a href="#config">
+                    <button type="button" class="comun-btn" data-toggle="modal" data-target="#config_modal">Configuraciones</button>
+                </a>
+                    <br>
+                <div class="line">
+                    <span class="line-1"></span><br>
+                    <span class="line-2"></span><br>
+                    <span class="line-3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- config -->
+
+    <section id="config">
+        <div class="containerr dirigido-row">
+            <div class="dirigido-left-col">
+                <div class="dirigido-text">
+                    <h1>Configuracion</h1>
+                    <span class="square"></span>
+                    <h4>Seleccione el idioma</h4>
+                    <select class="config" id='voiceList'></select>
+                    <hr>
+                    <h4>Seleccione tipo de entrenamiento</h4>
+                    <input type="text" class="config" id="perceptron_tasa_aprendizaje" value="0.2" />
+                    <input type="text" class="config" id="perceptron_error_deseado" value="0.05" />
+                    <input type="text" class="config" id="perceptron_epocas" value="50000" />
+                    <br><br>
+                    <a href="#prueba">
+                        <button type="button" class="comun-btn" data-toggle="modal" data-target="#prueba_modal">Prueba</button>
+                    </a>
+                    <div class="line">
+                        <span class="line-1"></span><br>
+                        <span class="line-2"></span><br>
+                        <span class="line-3"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="dirigido-right-col">
+                <img src="../../public/images/undraw_contract_uy56.svg" alt="">
+            </div>
+        </div>
+    </section>
+    <!-- Prueba -->
+    <section id="prueba">
+        <div class="obj-left-col">
+            <img src="../../public/images/undraw_predictive_analytics_kf9n.svg">
+        </div>
+        <div class="obj-right-col">
+            <div class="obj-text">
+                <h1>Dibuja!</h1>
+                <span class="square"></span>
+                        <div class="backcanvas">
+                        <canvas id="perceptronPaint" width="480" height="480"></canvas>
+                    </div>
+                    <br><br>
+                    <a href="#config">
+                        <button type="button" class="comun-btn" data-toggle="modal" data-target="#config_modal">Configuraciones</button>
+                    </a>
+                <div class="line">
+                    <span class="line-1"></span><br>
+                    <span class="line-2"></span><br>
+                    <span class="line-3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../../public/js/perceptronMulticapa.js"></script> 
+    
+<!-- Comentarios -->
+<section id="comments">
+    <div class="containerr comments-row">
+        <div class="comments-left-col">
+            <h1>Comentanos,<br> como te parecio el proyecto.</h1>
+            <form action="/api/comments" method="post">
+                <input type="email" name="correo" placeholder="Ingresa Tu Correo"  id="correo">
+              
+                <input type="text" name="titulo" placeholder="Motivo del mensaje" id="motivo">
+         
+                <textarea name="descripcion" placeholder="Escribe tu Comentario"  id="comentario" cols="10" rows="5"></textarea>
+                <div class="btn-box">
+                    <button class="comun-btn">Enviar</button>
+                </div>
+            </form>
+        </div>
+        <div class="comments-right-col">
+            <img src="../../public/images/undraw_home_cinema_l7yl.svg">
+        </div>
+        <div id="button-up">
+            <i class="fas fa-chevron-up"></i>
+           
+    </div>
+    </div>
+</section>
+<!-- footer -->
+<section id="footer">
+    <div class="containerr footer-row">
+        <hr>
+        
+        <div class="footer-left-col">
+            
+            <div class="footer-links">
+            <div class="link-title">
+                
+                <h4>Proyecto</h4>
+                <small>Objetivo</small><br>
+                <small>Dirigido a</small>
+            </div>
+            <div class="link-title">
+                <h4>Ayuda</h4>
+                <small>Comentarios</small>
+            </div>
+            <div class="link-title">
+                <h4>Git</h4>
+                <small>Juan </small><br>
+                <small>Julian </small><br>
+                
+             </div>
+         </div>
+        </div>
+        <div class="footer-right-col">
+            <div class="footer-info">
+                
+                <div class="copyright-text">
+                    <div class="logo1">
+                       <p><i class="fas fa-envelope-open-text"></i><br></p></div> 
+                    <small>masync.j@gmail.com</small><br>
+                    <small>julian-jcs14@hotmail.com</small><br>
+                    <small> Anonimus &copy; 2020</small>
+                </div>            
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+  </div>
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script src="../../public/js/index.js"></script>
+
+</body>
+
+<script src="../../public/js/buttun.js"></script>
+</html>
